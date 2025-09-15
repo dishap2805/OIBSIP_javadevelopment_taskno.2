@@ -1,0 +1,161 @@
+import java.util.*;
+
+public class Task1 {
+    private static final int min = 1000;
+    private static final int max = 9999;
+
+    // --- User class ---
+    public static class User {
+        private String username;
+        private String password;
+        Scanner sc = new Scanner(System.in);
+
+        public String getUsername() {
+            System.out.print("Enter Username : ");
+            username = sc.nextLine();
+            return username;
+        }
+
+        public String getPassword() {
+            System.out.print("Enter Password : ");
+            password = sc.nextLine();
+            return password;
+        }
+    }
+
+    // --- PNR Record class ---
+    public static class PnrRecord {
+        private int pnrNumber;
+        private String passengerName;
+        private String trainNumber;
+        private String classType;
+        private String journeyDate;
+        private String from;
+        private String to;
+
+        Scanner sc = new Scanner(System.in);
+
+        public int getpnrNumber() {
+            Random random = new Random();
+            pnrNumber = random.nextInt(max - min + 1) + min;
+            return pnrNumber;
+        }
+
+        public String getPassengerName() {
+            System.out.print("Enter the passenger name : ");
+            passengerName = sc.nextLine();
+            return passengerName;
+        }
+
+        public String getTrainNumber() {
+            System.out.print("Enter the train number : ");
+            trainNumber = sc.nextLine();
+            return trainNumber;
+        }
+
+        public String getClassType() {
+            System.out.print("Enter the class type : ");
+            classType = sc.nextLine();
+            return classType;
+        }
+
+        public String getJourneyDate() {
+            System.out.print("Enter the Journey date (YYYY-MM-DD): ");
+            journeyDate = sc.nextLine();
+            return journeyDate;
+        }
+
+        public String getFrom() {
+            System.out.print("Enter the starting place : ");
+            from = sc.nextLine();
+            return from;
+        }
+
+        public String getTo() {
+            System.out.print("Enter the destination place : ");
+            to = sc.nextLine();
+            return to;
+        }
+
+        @Override
+        public String toString() {
+            return "PNR Number: " + pnrNumber +
+                   "\nPassenger Name: " + passengerName +
+                   "\nTrain Number: " + trainNumber +
+                   "\nClass Type: " + classType +
+                   "\nJourney Date: " + journeyDate +
+                   "\nFrom: " + from +
+                   "\nTo: " + to +
+                   "\n--------------------";
+        }
+    }
+
+    // --- MAIN ---
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        List<PnrRecord> records = new ArrayList<>();
+
+        User u1 = new User();
+        String username = u1.getUsername();
+        String password = u1.getPassword();
+        System.out.println("\n Login successful for user: " + username);
+
+        while (true) {
+            System.out.println("\n===== MENU =====");
+            System.out.println("1. Insert Record");
+            System.out.println("2. Delete Record");
+            System.out.println("3. Show All Records");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            if (choice == 1) {
+                PnrRecord p1 = new PnrRecord();
+                p1.getpnrNumber();
+                p1.getPassengerName();
+                p1.getTrainNumber();
+                p1.getClassType();
+                p1.getJourneyDate();
+                p1.getFrom();
+                p1.getTo();
+                records.add(p1);
+                System.out.println(" Record added successfully!");
+
+            } else if (choice == 2) {
+                System.out.print("Enter PNR number to delete: ");
+                int pnr = sc.nextInt();
+                sc.nextLine();
+                boolean removed = records.removeIf(r -> r.pnrNumber == pnr);
+                if (removed) {
+                    System.out.println(" Record deleted successfully!");
+                } else {
+                    System.out.println(" No record found with that PNR.");
+                }
+
+            } else if (choice == 3) {
+                if (records.isEmpty()) {
+                    System.out.println("No records available.");
+                } else {
+                    System.out.println("\nAll Records:\n");
+                    for (PnrRecord r : records) {
+                        System.out.println(r);
+                    }
+                }
+
+            } else if (choice == 4) {
+                System.out.println("Exiting");
+                break;
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
+
+        sc.close();
+    }
+}
+       
+           
+    
+   
+           
